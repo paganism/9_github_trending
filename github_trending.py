@@ -19,5 +19,6 @@ def repo_info_view(repos):
 
 
 if __name__ == '__main__':
-    repos = get_trending_repositories(20)
+    top_size = 20
+    repos = get_trending_repositories(top_size)
     repo_info_view(repos)
