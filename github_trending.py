@@ -4,7 +4,8 @@ from datetime import datetime, timedelta
 
 
 def get_trending_repositories(top_size):
-    last_week = (datetime.today() - timedelta(7)).strftime("%Y-%m-%d")
+    days_in_week = 7
+    last_week = (datetime.today() - timedelta(days_in_week)).strftime("%Y-%m-%d")
     params = {'q': 'created>{}'.format(last_week), 'sort': 'stars', 'order': 'desc'}
     response = requests.get('https://api.github.com/search/repositories', params=params).json()
     trend_repo = response["items"][:top_size]
