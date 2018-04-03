@@ -3,8 +3,7 @@ import json
 from datetime import datetime, timedelta
 
 
-def get_trending_repositories(top_size):
-    days_in_week = 7
+def get_trending_repositories(top_size, days_in_week):
     last_week = (datetime.today() - timedelta(days_in_week)).strftime("%Y-%m-%d")
     params = {'q': 'created>{}'.format(last_week), 'sort': 'stars', 'order': 'desc'}
     response = requests.get('https://api.github.com/search/repositories', params=params).json()
@@ -21,5 +20,6 @@ def repo_info_view(repos):
 
 if __name__ == '__main__':
     top_size = 20
-    repos = get_trending_repositories(top_size)
+    days_in_week = 7
+    repos = get_trending_repositories(top_size, days_in_week)
     repo_info_view(repos)
