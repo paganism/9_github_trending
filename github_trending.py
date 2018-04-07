@@ -18,13 +18,13 @@ def get_repos_and_issues(repos):
     list_of_repos = []
     for repo in repos:
         owner = repo['owner']['login']
-        name = repo['name']
+        repo_name = repo['name']
         html_url = repo['html_url']
         response = requests.get('https://api.github.com/repos/{}/{}/issues'.
-                                format(owner, name)).json()
+                                format(owner, repo_name)).json()
         issues_qty = len(response)
         list_of_repos.append({'owner': owner,
-                              'name': name,
+                              'repo_name': repo_name,
                               'html_url': html_url,
                               'count_of_issues': issues_qty
                               })
@@ -34,7 +34,7 @@ def get_repos_and_issues(repos):
 def print_repo_info(repos):
     for repo in repos:
         print('owner: {}'.format(repo['owner']))
-        print('name: {}'.format(repo['name']))
+        print('repo_name: {}'.format(repo['repo_name']))
         print('open_issues: {}'.format(repo['count_of_issues']))
         print('html_url {}'.format(repo['html_url']))
 
