@@ -7,8 +7,11 @@ def get_trending_repositories(top_size, count_of_days):
     days_ago = (
         datetime.today() - timedelta(count_of_days)
     ).strftime('%Y-%m-%d')
-    params = {'q': 'created>{}'.format(days_ago),
-              'sort': 'stars', 'order': 'desc'}
+    params = {
+        'q': 'created>{}'.format(days_ago),
+        'sort': 'stars',
+        'order': 'desc'
+    }
     all_repos = requests.get(
         'https://api.github.com/search/repositories',
         params=params
@@ -17,7 +20,7 @@ def get_trending_repositories(top_size, count_of_days):
     return trend_repo
 
 
-def get_repos_and_issues(owner, repo_name):
+def get_issues(owner, repo_name):
     data_issue = requests.get(
         'https://api.github.com/repos/{}/{}/issues'.format(
             owner,
@@ -38,5 +41,5 @@ if __name__ == '__main__':
     count_of_days = 7
     trending_repos = get_trending_repositories(top_size, count_of_days)
     for repo in trending_repos:
-        issues = (get_repos_and_issues(repo['owner']['login'], repo['name']))
+        issues = (get_issues(repo['owner']['login'], repo['name']))
         print_repo_info(repo['name'], repo['html_url'], len(issues))
